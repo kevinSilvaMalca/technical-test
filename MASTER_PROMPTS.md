@@ -1,32 +1,11 @@
-# technical-test
+# Master Prompts
 
-Backend API built with NestJS + TypeScript, Hexagonal Architecture, MongoDB, JWT, TDD, Docker, AWS ECS + CDK.
-
----
-
-## Archivos de configuración del agente
-
-| Archivo | Descripción |
-|---------|-------------|
-| `CLAUDE.md` | Orquestador — se carga automáticamente en cada conversación |
-| `AGENT.md` | Contrato arquitectónico — reglas, modelos, endpoints, stack |
-| `AI_TASKS.md` | Roadmap de fases del proyecto |
-| `MASTER_PROMPTS.md` | Prompts listos para ejecutar cada fase |
-| `agents/auth.md` | Contexto detallado del módulo Auth |
-| `agents/products.md` | Contexto detallado del módulo Products |
-| `agents/orders.md` | Contexto detallado del módulo Orders |
-| `agents/infra.md` | Contexto detallado de infraestructura |
+Use these prompts in order. Wait for human approval before moving to the next phase.
 
 ---
 
-## Cómo ejecutar el proyecto con Claude
+## Prompt 1 — Bootstrap
 
-### Regla principal
-Ejecutar **una fase a la vez**. Esperar a que Claude termine y revisar antes de pasar a la siguiente.
-
-### Fases y prompts
-
-#### Fase 1 — Bootstrap
 ```
 Read AGENT.md and use it as the architectural contract for this entire project.
 
@@ -62,7 +41,8 @@ Summarize every file created.
 
 ---
 
-#### Fase 2 — Domain Layer
+## Prompt 2 — Domain Layer
+
 ```
 Follow AGENT.md strictly. Do not use NestJS decorators or Mongoose in this layer.
 
@@ -74,7 +54,7 @@ User domain:
 - Entity: User (id, email, passwordHash, role, status, createdAt, updatedAt)
 - Roles enum: admin | manager | customer
 - Port interface: IUserRepository (findByEmail, findById, save, update, delete)
-- Domain exceptions: UserAlreadyExistsException, UserNotFoundException, InvalidCredentialsException, UnauthorizedRoleAssignmentException
+- Domain exceptions: UserAlreadyExistsException, UserNotFoundException, InvalidCredentialsException
 
 Product domain:
 - Entity: Product (id, name, sku, description, picture, price, currency, stock, category, status, tags, createdAt, updatedAt)
@@ -97,7 +77,8 @@ Coverage goal: 85% on domain layer.
 
 ---
 
-#### Fase 3 — Application Layer
+## Prompt 3 — Application Layer
+
 ```
 Follow AGENT.md strictly. Use cases must only depend on domain ports, never on NestJS or Mongoose.
 
@@ -128,7 +109,8 @@ Coverage goal: 85% on application layer.
 
 ---
 
-#### Fase 4 — Infrastructure Layer
+## Prompt 4 — Infrastructure Layer
+
 ```
 Follow AGENT.md. This layer implements the domain ports using Mongoose.
 
@@ -149,7 +131,8 @@ Coverage goal: 85%.
 
 ---
 
-#### Fase 5 — HTTP Layer
+## Prompt 5 — HTTP Layer
+
 ```
 Follow AGENT.md. Controllers must not contain business logic. All logic lives in use cases.
 
@@ -188,7 +171,8 @@ Role permissions:
 
 ---
 
-#### Fase 6 — DevOps (Docker)
+## Prompt 6 — DevOps (Docker)
+
 ```
 Follow AGENT.md.
 
@@ -202,7 +186,7 @@ Tasks:
    - mongo: mongo:7, port 27017, persistent volume
    - mongo-express: port 8081, connected to mongo
 
-3. Create .dockerignore: node_modules, dist, .env, coverage, *.md, *.log, .git, test/
+3. Create .dockerignore: node_modules, dist, .env, coverage, *.md
 
 4. Create .env.example with all required variables:
    NODE_ENV, API_PORT, JWT_SECRET,
@@ -212,7 +196,8 @@ Tasks:
 
 ---
 
-#### Fase 7 — Cloud (AWS CDK)
+## Prompt 7 — Cloud (AWS CDK)
+
 ```
 Follow AGENT.md. This is a POC — keep the setup minimal and cost-effective.
 
@@ -235,7 +220,8 @@ Tasks:
 
 ---
 
-#### Fase 8 — Pipeline (GitHub Actions)
+## Prompt 8 — Pipeline (GitHub Actions)
+
 ```
 Follow AGENT.md.
 
@@ -265,7 +251,8 @@ AWS_ACCOUNT_ID, ECR_REPOSITORY, ECS_CLUSTER, ECS_SERVICE
 
 ---
 
-#### Fase 9 — Seed
+## Prompt 9 — Seed
+
 ```
 Follow AGENT.md.
 
