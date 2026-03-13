@@ -75,7 +75,10 @@ describe('Product Entity', () => {
   describe('withUpdates', () => {
     it('should return a new product with updated fields', () => {
       const product = Product.create(baseProps);
-      const updated = product.withUpdates({ name: 'iPhone 15 Pro', price: 1199.99 });
+      const updated = product.withUpdates({
+        name: 'iPhone 15 Pro',
+        price: 1199.99,
+      });
 
       expect(updated.name).toBe('iPhone 15 Pro');
       expect(updated.price).toBe(1199.99);

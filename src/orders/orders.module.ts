@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { OrderSchemaClass, OrderSchema } from './infrastructure/schemas/order.schema';
+import {
+  OrderSchemaClass,
+  OrderSchema,
+} from './infrastructure/schemas/order.schema';
 import { MongoOrderRepository } from './infrastructure/repositories/mongo-order.repository';
 import { ORDER_REPOSITORY } from './domain/ports/order-repository.interface';
 import { PRODUCT_PORT } from './domain/ports/product-port.interface';
 import { ProductAdapter } from './infrastructure/adapters/product.adapter';
-import { ProductSchemaClass, ProductSchema } from '../products/infrastructure/schemas/product.schema';
+import {
+  ProductSchemaClass,
+  ProductSchema,
+} from '../products/infrastructure/schemas/product.schema';
 import { CreateOrderUseCase } from './application/use-cases/create-order/create-order.use-case';
 import { UpdateOrderUseCase } from './application/use-cases/update-order/update-order.use-case';
 import { GetOrderUseCase } from './application/use-cases/get-order/get-order.use-case';
@@ -49,12 +55,14 @@ import { OrdersController } from './infrastructure/http/orders.controller';
     },
     {
       provide: GetMonthTotalUseCase,
-      useFactory: (repo: MongoOrderRepository) => new GetMonthTotalUseCase(repo),
+      useFactory: (repo: MongoOrderRepository) =>
+        new GetMonthTotalUseCase(repo),
       inject: [ORDER_REPOSITORY],
     },
     {
       provide: GetHighestTotalUseCase,
-      useFactory: (repo: MongoOrderRepository) => new GetHighestTotalUseCase(repo),
+      useFactory: (repo: MongoOrderRepository) =>
+        new GetHighestTotalUseCase(repo),
       inject: [ORDER_REPOSITORY],
     },
   ],

@@ -1,5 +1,8 @@
 import { SearchProductsUseCase } from './search-products.use-case';
-import { IProductRepository, PaginatedProducts } from '../../../domain/ports/product-repository.interface';
+import {
+  IProductRepository,
+  PaginatedProducts,
+} from '../../../domain/ports/product-repository.interface';
 import { Product } from '../../../domain/entities/product.entity';
 import { ProductStatus } from '../../../domain/enums/product-status.enum';
 

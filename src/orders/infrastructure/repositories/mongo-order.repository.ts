@@ -106,7 +106,7 @@ export class MongoOrderRepository implements IOrderRepository {
       subtotal: doc.subtotal,
       tax: doc.tax,
       total: doc.total,
-      status: doc.status as OrderStatus,
+      status: doc.status,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     });

@@ -9,7 +9,6 @@ import {
   PaginatedProducts,
 } from '../../domain/ports/product-repository.interface';
 import { Product } from '../../domain/entities/product.entity';
-import { ProductStatus } from '../../domain/enums/product-status.enum';
 
 @Injectable()
 export class MongoProductRepository implements IProductRepository {
@@ -118,7 +117,7 @@ export class MongoProductRepository implements IProductRepository {
       currency: 'USD',
       stock: doc.stock,
       category: doc.category,
-      status: doc.status as ProductStatus,
+      status: doc.status,
       tags: doc.tags,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,

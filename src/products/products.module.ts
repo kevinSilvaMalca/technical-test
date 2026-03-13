@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProductSchemaClass, ProductSchema } from './infrastructure/schemas/product.schema';
+import {
+  ProductSchemaClass,
+  ProductSchema,
+} from './infrastructure/schemas/product.schema';
 import { MongoProductRepository } from './infrastructure/repositories/mongo-product.repository';
 import { PRODUCT_REPOSITORY } from './domain/ports/product-repository.interface';
 import { CreateProductUseCase } from './application/use-cases/create-product/create-product.use-case';
@@ -21,7 +24,8 @@ import { ProductsController } from './infrastructure/http/products.controller';
     { provide: PRODUCT_REPOSITORY, useClass: MongoProductRepository },
     {
       provide: CreateProductUseCase,
-      useFactory: (repo: MongoProductRepository) => new CreateProductUseCase(repo),
+      useFactory: (repo: MongoProductRepository) =>
+        new CreateProductUseCase(repo),
       inject: [PRODUCT_REPOSITORY],
     },
     {
@@ -31,17 +35,20 @@ import { ProductsController } from './infrastructure/http/products.controller';
     },
     {
       provide: SearchProductsUseCase,
-      useFactory: (repo: MongoProductRepository) => new SearchProductsUseCase(repo),
+      useFactory: (repo: MongoProductRepository) =>
+        new SearchProductsUseCase(repo),
       inject: [PRODUCT_REPOSITORY],
     },
     {
       provide: UpdateProductUseCase,
-      useFactory: (repo: MongoProductRepository) => new UpdateProductUseCase(repo),
+      useFactory: (repo: MongoProductRepository) =>
+        new UpdateProductUseCase(repo),
       inject: [PRODUCT_REPOSITORY],
     },
     {
       provide: DeleteProductUseCase,
-      useFactory: (repo: MongoProductRepository) => new DeleteProductUseCase(repo),
+      useFactory: (repo: MongoProductRepository) =>
+        new DeleteProductUseCase(repo),
       inject: [PRODUCT_REPOSITORY],
     },
   ],

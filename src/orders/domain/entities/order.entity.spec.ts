@@ -1,4 +1,5 @@
 import { Order } from './order.entity';
+import { OrderItem } from './order-item.entity';
 import { OrderStatus } from '../enums/order-status.enum';
 import { EmptyOrderException } from '../exceptions/empty-order.exception';
 import { InvalidStatusTransitionException } from '../exceptions/invalid-status-transition.exception';
@@ -34,7 +35,14 @@ describe('Order Entity', () => {
         ...createOrderProps,
         items: [
           { ...baseItem, unitPrice: 100, quantity: 2, discount: 0 },
-          { ...baseItem, productId: 'product-2', sku: 'SKU-2', unitPrice: 50, quantity: 1, discount: 5 },
+          {
+            ...baseItem,
+            productId: 'product-2',
+            sku: 'SKU-2',
+            unitPrice: 50,
+            quantity: 1,
+            discount: 5,
+          },
         ],
       });
       // item1: 100*2 - 0 = 200, item2: 50*1 - 5 = 45
@@ -65,9 +73,9 @@ describe('Order Entity', () => {
     });
 
     it('should throw EmptyOrderException when items is empty', () => {
-      expect(() =>
-        Order.create({ ...createOrderProps, items: [] }),
-      ).toThrow(EmptyOrderException);
+      expect(() => Order.create({ ...createOrderProps, items: [] })).toThrow(
+        EmptyOrderException,
+      );
     });
 
     it('should set createdAt and updatedAt on creation', () => {
@@ -75,7 +83,9 @@ describe('Order Entity', () => {
       const order = Order.create(createOrderProps);
       const after = new Date();
 
-      expect(order.createdAt.getTime()).toBeGreaterThanOrEqual(before.getTime());
+      expect(order.createdAt.getTime()).toBeGreaterThanOrEqual(
+        before.getTime(),
+      );
       expect(order.updatedAt.getTime()).toBeLessThanOrEqual(after.getTime());
     });
   });
@@ -98,22 +108,22 @@ describe('Order Entity', () => {
     it('should throw when transitioning from delivered', () => {
       const order = new Order({
         ...createOrderProps,
-        items: [{ ...baseItem, lineTotal: 200 } as any],
+        items: [{ ...baseItem, lineTotal: 200 } as unknown as OrderItem],
         subtotal: 200,
         total: 220,
         status: OrderStatus.DELIVERED,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-      expect(() =>
-        order.validateStatusTransition(OrderStatus.PENDING),
-      ).toThrow(InvalidStatusTransitionException);
+      expect(() => order.validateStatusTransition(OrderStatus.PENDING)).toThrow(
+        InvalidStatusTransitionException,
+      );
     });
 
     it('should throw when transitioning from cancelled', () => {
       const order = new Order({
         ...createOrderProps,
-        items: [{ ...baseItem, lineTotal: 200 } as any],
+        items: [{ ...baseItem, lineTotal: 200 } as unknown as OrderItem],
         subtotal: 200,
         total: 220,
         status: OrderStatus.CANCELLED,
@@ -128,16 +138,16 @@ describe('Order Entity', () => {
     it('should throw on invalid transition shipped → pending', () => {
       const order = new Order({
         ...createOrderProps,
-        items: [{ ...baseItem, lineTotal: 200 } as any],
+        items: [{ ...baseItem, lineTotal: 200 } as unknown as OrderItem],
         subtotal: 200,
         total: 220,
         status: OrderStatus.SHIPPED,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-      expect(() =>
-        order.validateStatusTransition(OrderStatus.PENDING),
-      ).toThrow(InvalidStatusTransitionException);
+      expect(() => order.validateStatusTransition(OrderStatus.PENDING)).toThrow(
+        InvalidStatusTransitionException,
+      );
     });
   });
 

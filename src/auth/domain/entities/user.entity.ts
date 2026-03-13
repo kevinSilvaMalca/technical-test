@@ -30,9 +30,7 @@ export class User {
     this.updatedAt = props.updatedAt;
   }
 
-  static create(
-    props: Omit<UserProps, 'createdAt' | 'updatedAt'>,
-  ): User {
+  static create(props: Omit<UserProps, 'createdAt' | 'updatedAt'>): User {
     const now = new Date();
     return new User({ ...props, createdAt: now, updatedAt: now });
   }

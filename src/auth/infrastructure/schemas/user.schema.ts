@@ -16,10 +16,20 @@ export class UserSchemaClass {
   @Prop({ required: true })
   passwordHash!: string;
 
-  @Prop({ type: String, required: true, enum: Object.values(Role), default: Role.CUSTOMER })
+  @Prop({
+    type: String,
+    required: true,
+    enum: Object.values(Role),
+    default: Role.CUSTOMER,
+  })
   role!: Role;
 
-  @Prop({ type: String, required: true, enum: Object.values(UserStatus), default: UserStatus.ACTIVE })
+  @Prop({
+    type: String,
+    required: true,
+    enum: Object.values(UserStatus),
+    default: UserStatus.ACTIVE,
+  })
   status!: UserStatus;
 
   @Prop({ required: true })

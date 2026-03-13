@@ -1,6 +1,9 @@
 import { UpdateOrderUseCase } from './update-order.use-case';
 import { IOrderRepository } from '../../../domain/ports/order-repository.interface';
-import { IProductPort, ProductData } from '../../../domain/ports/product-port.interface';
+import {
+  IProductPort,
+  ProductData,
+} from '../../../domain/ports/product-port.interface';
 import { Order } from '../../../domain/entities/order.entity';
 import { OrderStatus } from '../../../domain/enums/order-status.enum';
 import { OrderNotFoundException } from '../../../domain/exceptions/order-not-found.exception';
@@ -115,7 +118,9 @@ describe('UpdateOrderUseCase', () => {
   });
 
   it('should throw InvalidStatusTransitionException on delivered → pending', async () => {
-    orderRepository.findById.mockResolvedValue(makeOrder(OrderStatus.DELIVERED));
+    orderRepository.findById.mockResolvedValue(
+      makeOrder(OrderStatus.DELIVERED),
+    );
 
     await expect(
       useCase.execute('order-1', { status: OrderStatus.PENDING }),
@@ -123,7 +128,9 @@ describe('UpdateOrderUseCase', () => {
   });
 
   it('should throw InvalidStatusTransitionException on cancelled → confirmed', async () => {
-    orderRepository.findById.mockResolvedValue(makeOrder(OrderStatus.CANCELLED));
+    orderRepository.findById.mockResolvedValue(
+      makeOrder(OrderStatus.CANCELLED),
+    );
 
     await expect(
       useCase.execute('order-1', { status: OrderStatus.CONFIRMED }),
@@ -142,7 +149,7 @@ describe('UpdateOrderUseCase', () => {
     const order = makeOrder();
     orderRepository.findById.mockResolvedValue(order);
     productPort.getById.mockResolvedValue(mockProduct);
-    orderRepository.update.mockImplementation(async (o) => o);
+    orderRepository.update.mockImplementation((o) => Promise.resolve(o));
 
     const result = await useCase.execute('order-1', {
       items: [{ productId: 'product-1', quantity: 3, discount: 0 }],

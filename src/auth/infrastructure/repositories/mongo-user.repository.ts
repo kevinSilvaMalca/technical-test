@@ -4,8 +4,6 @@ import { Model } from 'mongoose';
 import { UserSchemaClass, UserDocument } from '../schemas/user.schema';
 import { IUserRepository } from '../../domain/ports/user-repository.interface';
 import { User } from '../../domain/entities/user.entity';
-import { Role } from '../../domain/enums/role.enum';
-import { UserStatus } from '../../domain/enums/user-status.enum';
 
 @Injectable()
 export class MongoUserRepository implements IUserRepository {
@@ -62,8 +60,8 @@ export class MongoUserRepository implements IUserRepository {
       id: doc._id.toString(),
       email: doc.email,
       passwordHash: doc.passwordHash,
-      role: doc.role as Role,
-      status: doc.status as UserStatus,
+      role: doc.role,
+      status: doc.status,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     });

@@ -7,7 +7,13 @@ import {
   Param,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateOrderUseCase } from '../../application/use-cases/create-order/create-order.use-case';
 import { UpdateOrderUseCase } from '../../application/use-cases/update-order/update-order.use-case';
 import { GetOrderUseCase } from '../../application/use-cases/get-order/get-order.use-case';
@@ -46,20 +52,33 @@ export class OrdersController {
     description: 'Order created',
     schema: {
       example: {
-        id: '...', identifier: 'uuid-v4', clientName: 'Alice Johnson',
-        clientEmail: 'alice@example.com', subtotal: 999.99, tax: 100.00,
-        total: 1099.99, status: 'pending', items: [],
+        id: '...',
+        identifier: 'uuid-v4',
+        clientName: 'Alice Johnson',
+        clientEmail: 'alice@example.com',
+        subtotal: 999.99,
+        tax: 100.0,
+        total: 1099.99,
+        status: 'pending',
+        items: [],
       },
     },
   })
-  @ApiResponse({ status: 400, description: 'Empty items, product not found, or insufficient stock' })
+  @ApiResponse({
+    status: 400,
+    description: 'Empty items, product not found, or insufficient stock',
+  })
   @ApiResponse({ status: 401, description: 'Missing or invalid token' })
   async create(@Body() dto: CreateOrderDto) {
     return this.createOrderUseCase.execute(dto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'List all orders', description: 'Returns all orders in the system. Requires authentication (any role).' })
+  @ApiOperation({
+    summary: 'List all orders',
+    description:
+      'Returns all orders in the system. Requires authentication (any role).',
+  })
   @ApiResponse({ status: 200, description: 'Array of orders' })
   @ApiResponse({ status: 401, description: 'Missing or invalid token' })
   async findAll() {
@@ -69,9 +88,14 @@ export class OrdersController {
   @Get('stats/month-total')
   @ApiOperation({
     summary: 'Current month total revenue',
-    description: 'Returns the sum of **total** fields for all orders created in the current calendar month.',
+    description:
+      'Returns the sum of **total** fields for all orders created in the current calendar month.',
   })
-  @ApiResponse({ status: 200, description: 'Month total', schema: { example: { total: 24580.45 } } })
+  @ApiResponse({
+    status: 200,
+    description: 'Month total',
+    schema: { example: { total: 24580.45 } },
+  })
   @ApiResponse({ status: 401, description: 'Missing or invalid token' })
   async monthTotal() {
     const total = await this.getMonthTotalUseCase.execute();
@@ -81,17 +105,29 @@ export class OrdersController {
   @Get('stats/highest-total')
   @ApiOperation({
     summary: 'Order with highest total',
-    description: 'Returns the single order with the highest **total** amount. Returns **null** if no orders exist.',
+    description:
+      'Returns the single order with the highest **total** amount. Returns **null** if no orders exist.',
   })
-  @ApiResponse({ status: 200, description: 'Order with highest total (or null)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Order with highest total (or null)',
+  })
   @ApiResponse({ status: 401, description: 'Missing or invalid token' })
   async highestTotal() {
     return this.getHighestTotalUseCase.execute();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get order by ID', description: 'Returns the full order details for the given MongoDB ObjectId.' })
-  @ApiParam({ name: 'id', description: 'MongoDB ObjectId of the order', example: '64a1b2c3d4e5f6a7b8c9d0e1' })
+  @ApiOperation({
+    summary: 'Get order by ID',
+    description:
+      'Returns the full order details for the given MongoDB ObjectId.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'MongoDB ObjectId of the order',
+    example: '64a1b2c3d4e5f6a7b8c9d0e1',
+  })
   @ApiResponse({ status: 200, description: 'Order found' })
   @ApiResponse({ status: 401, description: 'Missing or invalid token' })
   @ApiResponse({ status: 404, description: 'Order not found' })
@@ -108,9 +144,16 @@ export class OrdersController {
       'Status can be updated following the allowed transitions: ' +
       'pending→confirmed|cancelled · confirmed→shipped|cancelled · shipped→delivered.',
   })
-  @ApiParam({ name: 'id', description: 'MongoDB ObjectId of the order', example: '64a1b2c3d4e5f6a7b8c9d0e1' })
+  @ApiParam({
+    name: 'id',
+    description: 'MongoDB ObjectId of the order',
+    example: '64a1b2c3d4e5f6a7b8c9d0e1',
+  })
   @ApiResponse({ status: 200, description: 'Order updated successfully' })
-  @ApiResponse({ status: 400, description: 'Invalid status transition or validation error' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid status transition or validation error',
+  })
   @ApiResponse({ status: 401, description: 'Missing or invalid token' })
   @ApiResponse({ status: 404, description: 'Order not found' })
   async update(@Param('id') id: string, @Body() dto: UpdateOrderDto) {
