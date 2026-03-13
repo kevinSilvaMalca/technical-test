@@ -33,6 +33,9 @@ export class OrderItemSchemaClass {
 
 @Schema({ collection: 'orders', timestamps: false })
 export class OrderSchemaClass {
+  @Prop({ type: String })
+  _id!: string;
+
   @Prop({ required: true, unique: true })
   identifier!: string;
 
