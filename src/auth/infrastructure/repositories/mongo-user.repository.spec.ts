@@ -2,17 +2,20 @@ import { MongoUserRepository } from './mongo-user.repository';
 import { Role } from '../../domain/enums/role.enum';
 import { UserStatus } from '../../domain/enums/user-status.enum';
 import { User } from '../../domain/entities/user.entity';
+import { Model } from 'mongoose';
+import { UserDocument } from '../schemas/user.schema';
+
+type UserModelMock = jest.Mock & {
+  findOne: jest.Mock;
+  findById: jest.Mock;
+  findByIdAndUpdate: jest.Mock;
+  findByIdAndDelete: jest.Mock;
+  save: jest.Mock;
+};
 
 describe('MongoUserRepository', () => {
   let repository: MongoUserRepository;
-  let userModel: {
-    findOne: jest.Mock;
-    findById: jest.Mock;
-    findByIdAndUpdate: jest.Mock;
-    findByIdAndDelete: jest.Mock;
-    save: jest.Mock;
-    prototype: { save: jest.Mock };
-  };
+  let userModel: UserModelMock;
 
   const mockDoc = {
     _id: 'user-1',
@@ -27,8 +30,12 @@ describe('MongoUserRepository', () => {
 
   beforeEach(() => {
     const saveMock = jest.fn().mockResolvedValue(mockDoc);
-    const ModelMock = jest.fn().mockImplementation(() => ({ save: saveMock }));
-    ModelMock.prototype.save = saveMock;
+    const ModelMock = jest
+      .fn()
+      .mockImplementation(() => ({ save: saveMock })) as UserModelMock;
+    (ModelMock as unknown as { prototype: { save: jest.Mock } }).prototype = {
+      save: saveMock,
+    };
 
     userModel = Object.assign(ModelMock, {
       findOne: jest.fn(),
@@ -36,9 +43,11 @@ describe('MongoUserRepository', () => {
       findByIdAndUpdate: jest.fn(),
       findByIdAndDelete: jest.fn(),
       save: saveMock,
-    }) as any;
+    });
 
-    repository = new MongoUserRepository(userModel as any);
+    repository = new MongoUserRepository(
+      userModel as unknown as Model<UserDocument>,
+    );
   });
 
   describe('findByEmail', () => {
@@ -82,7 +91,7 @@ describe('MongoUserRepository', () => {
   describe('save', () => {
     it('should save a user and return domain entity', async () => {
       const saveMock = jest.fn().mockResolvedValue(mockDoc);
-      (userModel as any).mockImplementation(() => ({ save: saveMock }));
+      userModel.mockImplementation(() => ({ save: saveMock }));
 
       const user = new User({
         id: 'user-1',

@@ -1,10 +1,18 @@
 import { MongoOrderRepository } from './mongo-order.repository';
 import { Order } from '../../domain/entities/order.entity';
 import { OrderStatus } from '../../domain/enums/order-status.enum';
+import { Model } from 'mongoose';
+import { OrderDocument } from '../schemas/order.schema';
+
+type OrderModelMock = jest.Mock & {
+  findById: jest.Mock;
+  find: jest.Mock;
+  findByIdAndUpdate: jest.Mock;
+};
 
 describe('MongoOrderRepository', () => {
   let repository: MongoOrderRepository;
-  let orderModel: any;
+  let orderModel: OrderModelMock;
 
   const mockDoc = {
     _id: 'order-1',
@@ -39,9 +47,11 @@ describe('MongoOrderRepository', () => {
       findById: jest.fn(),
       find: jest.fn(),
       findByIdAndUpdate: jest.fn(),
-    });
+    }) as OrderModelMock;
 
-    repository = new MongoOrderRepository(orderModel as any);
+    repository = new MongoOrderRepository(
+      orderModel as unknown as Model<OrderDocument>,
+    );
   });
 
   describe('findById', () => {
@@ -88,7 +98,9 @@ describe('MongoOrderRepository', () => {
 
       const result = await repository.findByStatus(OrderStatus.PENDING);
 
-      expect(orderModel.find).toHaveBeenCalledWith({ status: OrderStatus.PENDING });
+      expect(orderModel.find).toHaveBeenCalledWith({
+        status: OrderStatus.PENDING,
+      });
       expect(result).toHaveLength(1);
     });
   });

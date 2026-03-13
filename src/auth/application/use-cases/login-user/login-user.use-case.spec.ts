@@ -58,7 +58,10 @@ describe('LoginUserUseCase', () => {
     userRepository.findByEmail.mockResolvedValue(null);
 
     await expect(
-      useCase.execute({ email: 'notfound@example.com', password: 'Password1!' }),
+      useCase.execute({
+        email: 'notfound@example.com',
+        password: 'Password1!',
+      }),
     ).rejects.toThrow(InvalidCredentialsException);
   });
 

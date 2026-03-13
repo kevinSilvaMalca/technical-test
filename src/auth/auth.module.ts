@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserSchemaClass, UserSchema } from './infrastructure/schemas/user.schema';
+import {
+  UserSchemaClass,
+  UserSchema,
+} from './infrastructure/schemas/user.schema';
 import { MongoUserRepository } from './infrastructure/repositories/mongo-user.repository';
 import { USER_REPOSITORY } from './domain/ports/user-repository.interface';
 import { JWT_SERVICE } from './application/ports/jwt-service.interface';
@@ -21,7 +24,9 @@ import { AuthController } from './infrastructure/http/auth.controller';
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
         secret: config.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: (config.get('JWT_EXPIRES_IN') ?? '7d') as any },
+        signOptions: {
+          expiresIn: config.get('JWT_EXPIRES_IN') ?? '7d',
+        },
       }),
       inject: [ConfigService],
     }),
@@ -43,7 +48,8 @@ import { AuthController } from './infrastructure/http/auth.controller';
     },
     {
       provide: GetCurrentUserUseCase,
-      useFactory: (repo: MongoUserRepository) => new GetCurrentUserUseCase(repo),
+      useFactory: (repo: MongoUserRepository) =>
+        new GetCurrentUserUseCase(repo),
       inject: [USER_REPOSITORY],
     },
   ],

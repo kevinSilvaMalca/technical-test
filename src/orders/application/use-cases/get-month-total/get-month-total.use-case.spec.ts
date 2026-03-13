@@ -59,10 +59,7 @@ describe('GetMonthTotalUseCase', () => {
     const lastMonth = new Date(now);
     lastMonth.setMonth(lastMonth.getMonth() - 1);
 
-    const orders = [
-      makeOrder('1', 100, now),
-      makeOrder('2', 999, lastMonth),
-    ];
+    const orders = [makeOrder('1', 100, now), makeOrder('2', 999, lastMonth)];
     orderRepository.findAll.mockResolvedValue(orders);
 
     const result = await useCase.execute();
