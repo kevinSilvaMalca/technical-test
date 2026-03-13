@@ -1,0 +1,268 @@
+{
+  "/TechnicalTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/TechnicalTestStack/ApiService": [
+    {
+      "type": "aws:cdk:warning",
+      "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+      "trace": [
+        "Annotations.addMessage (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:2066)",
+        "Annotations.addWarningV2 (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/aws-cdk-lib/core/lib/annotations.js:1:984)",
+        "new BaseService2 (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/aws-cdk-lib/aws-ecs/lib/base/base-service.js:1:12364)",
+        "new FargateService2 (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/aws-cdk-lib/aws-ecs/lib/fargate/fargate-service.js:1:6371)",
+        "new FargateService2 (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:681)",
+        "new EcsStack (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/lib/ecs-stack.ts:127:21)",
+        "Object.<anonymous> (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/bin/app.ts:8:1)",
+        "Module._compile (node:internal/modules/cjs/loader:1369:14)",
+        "Module.m._compile (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/ts-node/src/index.ts:1618:23)",
+        "Module._extensions..js (node:internal/modules/cjs/loader:1427:10)",
+        "Object.require.extensions.<computed> [as .ts] (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/ts-node/src/index.ts:1621:12)",
+        "Module.load (node:internal/modules/cjs/loader:1206:32)",
+        "Function.Module._load (node:internal/modules/cjs/loader:1022:12)",
+        "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)",
+        "phase4 (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/ts-node/src/bin.ts:649:14)",
+        "bootstrap (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/ts-node/src/bin.ts:95:10)",
+        "main (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/ts-node/src/bin.ts:55:10)",
+        "Object.<anonymous> (/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra/node_modules/ts-node/src/bin.ts:800:3)",
+        "Module._compile (node:internal/modules/cjs/loader:1369:14)",
+        "Object.Module._extensions..js (node:internal/modules/cjs/loader:1427:10)",
+        "Module.load (node:internal/modules/cjs/loader:1206:32)",
+        "Function.Module._load (node:internal/modules/cjs/loader:1022:12)",
+        "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)",
+        "node:internal/main/run_main_module:28:49"
+      ]
+    }
+  ],
+  "/TechnicalTestStack/ApiUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiUrl"
+    }
+  ],
+  "/TechnicalTestStack/EcrRepositoryUri": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EcrRepositoryUri"
+    }
+  ],
+  "/TechnicalTestStack/EcsClusterName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EcsClusterName"
+    }
+  ],
+  "/TechnicalTestStack/EcsServiceName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EcsServiceName"
+    }
+  ],
+  "/TechnicalTestStack/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/TechnicalTestStack/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Vpc8378EB38"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/IGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIGWD7BA715C"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/VPCGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcVPCGWBF912B6E"
+    }
+  ],
+  "/TechnicalTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+    }
+  ],
+  "/TechnicalTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
+    }
+  ],
+  "/TechnicalTestStack/ApiRepository/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiRepositoryB8378B43"
+    }
+  ],
+  "/TechnicalTestStack/JwtSecret/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "JwtSecretB8834B39"
+    }
+  ],
+  "/TechnicalTestStack/MongodbUri/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "MongodbUri4B50AF05"
+    }
+  ],
+  "/TechnicalTestStack/ApiLogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiLogGroup1DEDFC07"
+    }
+  ],
+  "/TechnicalTestStack/Cluster/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClusterEB0386A7"
+    }
+  ],
+  "/TechnicalTestStack/TaskDef/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskDef54694570"
+    }
+  ],
+  "/TechnicalTestStack/AlbSg/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlbSg1155C1BE"
+    }
+  ],
+  "/TechnicalTestStack/ServiceSg/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceSg2632F788"
+    }
+  ],
+  "/TechnicalTestStack/ServiceSg/from TechnicalTestStackAlbSg4D1E6C63:3000": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ServiceSgfromTechnicalTestStackAlbSg4D1E6C6330007214EDF8"
+    }
+  ],
+  "/TechnicalTestStack/Alb/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Alb16C2F182"
+    }
+  ],
+  "/TechnicalTestStack/ApiService/Service": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiServiceC9037CF0"
+    }
+  ],
+  "/TechnicalTestStack/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1Subnet2BB74ED7"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1RouteTable15C15F8E"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1RouteTableAssociation4E83B6E4"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet1/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet1DefaultRouteB88F9E93"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2SubnetE34B022A"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2RouteTableC5A6DF77"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2RouteTableAssociationCCE257FF"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/publicSubnet2/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcpublicSubnet2DefaultRoute732F0BEB"
+    }
+  ],
+  "/TechnicalTestStack/Vpc/RestrictDefaultSecurityGroupCustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcRestrictDefaultSecurityGroupCustomResourceC73DA2BE"
+    }
+  ],
+  "/TechnicalTestStack/TaskDef/TaskRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskDefTaskRole1EDB4A67"
+    }
+  ],
+  "/TechnicalTestStack/TaskDef/ExecutionRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskDefExecutionRoleB4775C97"
+    }
+  ],
+  "/TechnicalTestStack/Alb/HttpListener/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlbHttpListener00C8B33E"
+    }
+  ],
+  "/TechnicalTestStack/TaskDef/TaskRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskDefTaskRoleDefaultPolicyA592CB18"
+    }
+  ],
+  "/TechnicalTestStack/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TaskDefExecutionRoleDefaultPolicy0DBB737A"
+    }
+  ],
+  "/TechnicalTestStack/Alb/HttpListener/ApiTargetGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlbHttpListenerApiTargetGroup47BD0ADD"
+    }
+  ]
+}
