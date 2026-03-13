@@ -1,0 +1,1026 @@
+{
+ "Description": "Technical Test — NestJS API on ECS Fargate + Atlas MongoDB",
+ "Resources": {
+  "Vpc8378EB38": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "TechnicalTestStack/Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/Resource"
+   }
+  },
+  "VpcpublicSubnet1Subnet2BB74ED7": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "TechnicalTestStack/Vpc/publicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet1/Subnet"
+   }
+  },
+  "VpcpublicSubnet1RouteTable15C15F8E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "TechnicalTestStack/Vpc/publicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet1/RouteTable"
+   }
+  },
+  "VpcpublicSubnet1RouteTableAssociation4E83B6E4": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet1RouteTable15C15F8E"
+    },
+    "SubnetId": {
+     "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet1/RouteTableAssociation"
+   }
+  },
+  "VpcpublicSubnet1DefaultRouteB88F9E93": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet1RouteTable15C15F8E"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet1/DefaultRoute"
+   }
+  },
+  "VpcpublicSubnet2SubnetE34B022A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "TechnicalTestStack/Vpc/publicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet2/Subnet"
+   }
+  },
+  "VpcpublicSubnet2RouteTableC5A6DF77": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "TechnicalTestStack/Vpc/publicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet2/RouteTable"
+   }
+  },
+  "VpcpublicSubnet2RouteTableAssociationCCE257FF": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet2RouteTableC5A6DF77"
+    },
+    "SubnetId": {
+     "Ref": "VpcpublicSubnet2SubnetE34B022A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet2/RouteTableAssociation"
+   }
+  },
+  "VpcpublicSubnet2DefaultRoute732F0BEB": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "RouteTableId": {
+     "Ref": "VpcpublicSubnet2RouteTableC5A6DF77"
+    }
+   },
+   "DependsOn": [
+    "VpcVPCGWBF912B6E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/publicSubnet2/DefaultRoute"
+   }
+  },
+  "VpcIGWD7BA715C": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "TechnicalTestStack/Vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/IGW"
+   }
+  },
+  "VpcVPCGWBF912B6E": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "VpcIGWD7BA715C"
+    },
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/VPCGW"
+   }
+  },
+  "VpcRestrictDefaultSecurityGroupCustomResourceC73DA2BE": {
+   "Type": "Custom::VpcRestrictDefaultSG",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+      "Arn"
+     ]
+    },
+    "DefaultSecurityGroupId": {
+     "Fn::GetAtt": [
+      "Vpc8378EB38",
+      "DefaultSecurityGroup"
+     ]
+    },
+    "Account": {
+     "Ref": "AWS::AccountId"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Vpc/RestrictDefaultSecurityGroupCustomResource/Default"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:aws:ec2:us-east-1:",
+             {
+              "Ref": "AWS::AccountId"
+             },
+             ":security-group/",
+             {
+              "Fn::GetAtt": [
+               "Vpc8378EB38",
+               "DefaultSecurityGroup"
+              ]
+             }
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-us-east-1"
+     },
+     "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+   },
+   "DependsOn": [
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+    "aws:asset:property": "Code"
+   }
+  },
+  "ApiRepositoryB8378B43": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "EmptyOnDelete": true,
+    "RepositoryName": "technical-test-api"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/ApiRepository/Resource"
+   }
+  },
+  "JwtSecretB8834B39": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "JWT secret for the NestJS API",
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "PasswordLength": 64
+    },
+    "Name": "technical-test/jwt-secret"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/JwtSecret/Resource"
+   }
+  },
+  "MongodbUri4B50AF05": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "MongoDB Atlas connection string",
+    "GenerateSecretString": {},
+    "Name": "technical-test/mongodb-uri"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/MongodbUri/Resource"
+   }
+  },
+  "ApiLogGroup1DEDFC07": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/technical-test/api",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/ApiLogGroup/Resource"
+   }
+  },
+  "ClusterEB0386A7": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "technical-test-cluster"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Cluster/Resource"
+   }
+  },
+  "TaskDefTaskRole1EDB4A67": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/TaskDef/TaskRole/Resource"
+   }
+  },
+  "TaskDefTaskRoleDefaultPolicyA592CB18": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "JwtSecretB8834B39"
+        },
+        {
+         "Ref": "MongodbUri4B50AF05"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "TaskDefTaskRoleDefaultPolicyA592CB18",
+    "Roles": [
+     {
+      "Ref": "TaskDefTaskRole1EDB4A67"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/TaskDef/TaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "TaskDef54694570": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "NODE_ENV",
+        "Value": "production"
+       },
+       {
+        "Name": "API_PORT",
+        "Value": "3000"
+       }
+      ],
+      "Essential": true,
+      "HealthCheck": {
+       "Command": [
+        "CMD-SHELL",
+        "wget -qO- http://localhost:3000/health || exit 1"
+       ],
+       "Interval": 30,
+       "Retries": 3,
+       "StartPeriod": 60,
+       "Timeout": 5
+      },
+      "Image": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::Select": [
+           4,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "ApiRepositoryB8378B43",
+               "Arn"
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".dkr.ecr.",
+         {
+          "Fn::Select": [
+           3,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "ApiRepositoryB8378B43",
+               "Arn"
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         ".",
+         {
+          "Ref": "AWS::URLSuffix"
+         },
+         "/",
+         {
+          "Ref": "ApiRepositoryB8378B43"
+         },
+         ":latest"
+        ]
+       ]
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ApiLogGroup1DEDFC07"
+        },
+        "awslogs-stream-prefix": "api",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "ApiContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 3000,
+        "Protocol": "tcp"
+       }
+      ],
+      "Secrets": [
+       {
+        "Name": "JWT_SECRET",
+        "ValueFrom": {
+         "Ref": "JwtSecretB8834B39"
+        }
+       },
+       {
+        "Name": "MONGODB_URI",
+        "ValueFrom": {
+         "Ref": "MongodbUri4B50AF05"
+        }
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "TaskDefExecutionRoleB4775C97",
+      "Arn"
+     ]
+    },
+    "Family": "TechnicalTestStackTaskDef703A0DB0",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "TaskDefTaskRole1EDB4A67",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/TaskDef/Resource"
+   }
+  },
+  "TaskDefExecutionRoleB4775C97": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/TaskDef/ExecutionRole/Resource"
+   }
+  },
+  "TaskDefExecutionRoleDefaultPolicy0DBB737A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ApiRepositoryB8378B43",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ApiLogGroup1DEDFC07",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "JwtSecretB8834B39"
+        },
+        {
+         "Ref": "MongodbUri4B50AF05"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "TaskDefExecutionRoleDefaultPolicy0DBB737A",
+    "Roles": [
+     {
+      "Ref": "TaskDefExecutionRoleB4775C97"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "AlbSg1155C1BE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ALB security group",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "HTTP",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/AlbSg/Resource"
+   }
+  },
+  "ServiceSg2632F788": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ECS service security group",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/ServiceSg/Resource"
+   }
+  },
+  "ServiceSgfromTechnicalTestStackAlbSg4D1E6C6330007214EDF8": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "From ALB",
+    "FromPort": 3000,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "ServiceSg2632F788",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "AlbSg1155C1BE",
+      "GroupId"
+     ]
+    },
+    "ToPort": 3000
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/ServiceSg/from TechnicalTestStackAlbSg4D1E6C63:3000"
+   }
+  },
+  "Alb16C2F182": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Name": "technical-test-alb",
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "AlbSg1155C1BE",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+     },
+     {
+      "Ref": "VpcpublicSubnet2SubnetE34B022A"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "VpcpublicSubnet1DefaultRouteB88F9E93",
+    "VpcpublicSubnet1RouteTableAssociation4E83B6E4",
+    "VpcpublicSubnet2DefaultRoute732F0BEB",
+    "VpcpublicSubnet2RouteTableAssociationCCE257FF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Alb/Resource"
+   }
+  },
+  "AlbHttpListener00C8B33E": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "AlbHttpListenerApiTargetGroup47BD0ADD"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "Alb16C2F182"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Alb/HttpListener/Resource"
+   }
+  },
+  "AlbHttpListenerApiTargetGroup47BD0ADD": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "HealthCheckIntervalSeconds": 30,
+    "HealthCheckPath": "/health",
+    "HealthyThresholdCount": 2,
+    "Matcher": {
+     "HttpCode": "200"
+    },
+    "Port": 3000,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "deregistration_delay.timeout_seconds",
+      "Value": "30"
+     },
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "UnhealthyThresholdCount": 3,
+    "VpcId": {
+     "Ref": "Vpc8378EB38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/Alb/HttpListener/ApiTargetGroup/Resource"
+   }
+  },
+  "ApiServiceC9037CF0": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "ClusterEB0386A7"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "ApiContainer",
+      "ContainerPort": 3000,
+      "TargetGroupArn": {
+       "Ref": "AlbHttpListenerApiTargetGroup47BD0ADD"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "ENABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ServiceSg2632F788",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+       },
+       {
+        "Ref": "VpcpublicSubnet2SubnetE34B022A"
+       }
+      ]
+     }
+    },
+    "ServiceName": "technical-test-api",
+    "TaskDefinition": {
+     "Ref": "TaskDef54694570"
+    }
+   },
+   "DependsOn": [
+    "AlbHttpListenerApiTargetGroup47BD0ADD",
+    "AlbHttpListener00C8B33E",
+    "TaskDefTaskRoleDefaultPolicyA592CB18",
+    "TaskDefTaskRole1EDB4A67"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/ApiService/Service"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31Q227bMAz9lr4raubtB9IMKwoUWGAXfR1omdXYyJJBUgkKw/9e+JI4G4Y98VwoUjyFLb59tds7OMvGNcdNoNr2lYI7GjjLrx5dYfvXzpn9W3w97M0h14FcleuIOmorKlNWfIE64Kqv2k4kOQKlFK/NI3iKihxRH0HxDB/LmoXtVMH9bjGqqdBlJv145JS7acF/hafoGUUGg45tX2KXhDTxNH9lgxF0jCotRPDItq8mvoxj1MGE5MX2z8lfF13wOFxsvw9ZFHl0LvAHsIfxcDl+xzeKdDn7byVFBYrIN9rytkI+kZujnOFgCFrbl2kOeKqHFMhNR81oMBhAlFxI0NQQIDqK/lTYftd1gdyU/3OC5mHy5l//wW/7SBTj0nPBN/4LsEe9xnJDh8GUKCnzeEAWTe1Kx/z/aR04nahBfgBBsxNBrRQ8RT+++Zm1yzqYmBq073J/Krb2S2G3d+9CtOEclVq05Vw/AWGoLyPUAgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TechnicalTestStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ApiUrl": {
+   "Description": "API URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "Alb16C2F182",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "EcrRepositoryUri": {
+   "Description": "ECR Repository URI",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ApiRepositoryB8378B43",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ApiRepositoryB8378B43",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ApiRepositoryB8378B43"
+      }
+     ]
+    ]
+   }
+  },
+  "EcsClusterName": {
+   "Description": "ECS Cluster name",
+   "Value": {
+    "Ref": "ClusterEB0386A7"
+   }
+  },
+  "EcsServiceName": {
+   "Description": "ECS Service name",
+   "Value": {
+    "Fn::GetAtt": [
+     "ApiServiceC9037CF0",
+     "Name"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
