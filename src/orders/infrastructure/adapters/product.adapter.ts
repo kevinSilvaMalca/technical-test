@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { IProductPort, ProductData } from '../../domain/ports/product-port.interface';
-import { ProductSchemaClass, ProductDocument } from '../../../products/infrastructure/schemas/product.schema';
+import {
+  IProductPort,
+  ProductData,
+} from '../../domain/ports/product-port.interface';
+import {
+  ProductSchemaClass,
+  ProductDocument,
+} from '../../../products/infrastructure/schemas/product.schema';
 
 @Injectable()
 export class ProductAdapter implements IProductPort {

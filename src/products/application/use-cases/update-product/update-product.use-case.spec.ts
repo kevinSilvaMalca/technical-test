@@ -41,7 +41,9 @@ describe('UpdateProductUseCase', () => {
     productRepository.findBySku.mockResolvedValue(null);
     productRepository.update.mockResolvedValue(updated);
 
-    const result = await useCase.execute('product-1', { name: 'iPhone 15 Pro' });
+    const result = await useCase.execute('product-1', {
+      name: 'iPhone 15 Pro',
+    });
 
     expect(result.name).toBe('iPhone 15 Pro');
     expect(productRepository.update).toHaveBeenCalledTimes(1);

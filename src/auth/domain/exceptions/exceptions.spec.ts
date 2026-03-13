@@ -6,7 +6,9 @@ import { UnauthorizedRoleAssignmentException } from './unauthorized-role-assignm
 describe('Auth Domain Exceptions', () => {
   it('UserAlreadyExistsException should have correct message and name', () => {
     const err = new UserAlreadyExistsException('test@example.com');
-    expect(err.message).toBe("User with email 'test@example.com' already exists");
+    expect(err.message).toBe(
+      "User with email 'test@example.com' already exists",
+    );
     expect(err.name).toBe('UserAlreadyExistsException');
     expect(err).toBeInstanceOf(Error);
   });

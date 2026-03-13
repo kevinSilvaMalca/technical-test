@@ -72,5 +72,6 @@ export class OrderSchemaClass {
   updatedAt!: Date;
 }
 
-export const OrderItemSchema = SchemaFactory.createForClass(OrderItemSchemaClass);
+export const OrderItemSchema =
+  SchemaFactory.createForClass(OrderItemSchemaClass);
 export const OrderSchema = SchemaFactory.createForClass(OrderSchemaClass);

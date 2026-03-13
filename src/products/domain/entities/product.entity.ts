@@ -56,9 +56,7 @@ export class Product {
     this.updatedAt = props.updatedAt;
   }
 
-  static create(
-    props: Omit<ProductProps, 'createdAt' | 'updatedAt'>,
-  ): Product {
+  static create(props: Omit<ProductProps, 'createdAt' | 'updatedAt'>): Product {
     const now = new Date();
     return new Product({ ...props, createdAt: now, updatedAt: now });
   }

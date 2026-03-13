@@ -1,10 +1,21 @@
 import { MongoProductRepository } from './mongo-product.repository';
 import { Product } from '../../domain/entities/product.entity';
 import { ProductStatus } from '../../domain/enums/product-status.enum';
+import { Model } from 'mongoose';
+import { ProductDocument } from '../schemas/product.schema';
+
+type ProductModelMock = jest.Mock & {
+  findById: jest.Mock;
+  findOne: jest.Mock;
+  find: jest.Mock;
+  findByIdAndUpdate: jest.Mock;
+  findByIdAndDelete: jest.Mock;
+  countDocuments: jest.Mock;
+};
 
 describe('MongoProductRepository', () => {
   let repository: MongoProductRepository;
-  let productModel: any;
+  let productModel: ProductModelMock;
 
   const mockDoc = {
     _id: 'product-1',
@@ -35,7 +46,9 @@ describe('MongoProductRepository', () => {
       countDocuments: jest.fn(),
     });
 
-    repository = new MongoProductRepository(productModel as any);
+    repository = new MongoProductRepository(
+      productModel as unknown as Model<ProductDocument>,
+    );
   });
 
   describe('findById', () => {

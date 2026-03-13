@@ -8,6 +8,10 @@ import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 
+interface RequestWithUser extends Request {
+  user: jwt.JwtPayload | string;
+}
+
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   constructor(private readonly configService: ConfigService) {}
@@ -23,7 +27,7 @@ export class JwtAuthGuard implements CanActivate {
     try {
       const secret = this.configService.get<string>('JWT_SECRET', 'secret');
       const payload = jwt.verify(token, secret);
-      (request as any).user = payload;
+      (request as RequestWithUser).user = payload;
       return true;
     } catch {
       throw new UnauthorizedException('Invalid token');

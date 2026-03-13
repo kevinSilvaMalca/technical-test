@@ -103,7 +103,7 @@ export class Order {
 
     let items = this.items;
     let subtotal = this.subtotal;
-    let tax = updates.tax ?? this.tax;
+    const tax = updates.tax ?? this.tax;
 
     if (updates.items) {
       if (updates.items.length === 0) {

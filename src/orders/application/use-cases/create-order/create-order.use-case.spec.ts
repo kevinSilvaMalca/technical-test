@@ -1,7 +1,9 @@
 import { CreateOrderUseCase } from './create-order.use-case';
 import { IOrderRepository } from '../../../domain/ports/order-repository.interface';
-import { IProductPort, ProductData } from '../../../domain/ports/product-port.interface';
-import { Order } from '../../../domain/entities/order.entity';
+import {
+  IProductPort,
+  ProductData,
+} from '../../../domain/ports/product-port.interface';
 import { OrderStatus } from '../../../domain/enums/order-status.enum';
 import { EmptyOrderException } from '../../../domain/exceptions/empty-order.exception';
 import { InsufficientStockException } from '../../../domain/exceptions/insufficient-stock.exception';
@@ -44,7 +46,7 @@ describe('CreateOrderUseCase', () => {
 
   it('should create an order with correct totals', async () => {
     productPort.getById.mockResolvedValue(mockProduct);
-    orderRepository.save.mockImplementation(async (order) => order);
+    orderRepository.save.mockImplementation((order) => Promise.resolve(order));
 
     const result = await useCase.execute(baseInput);
 
@@ -57,7 +59,7 @@ describe('CreateOrderUseCase', () => {
 
   it('should calculate lineTotal correctly with discount', async () => {
     productPort.getById.mockResolvedValue(mockProduct);
-    orderRepository.save.mockImplementation(async (order) => order);
+    orderRepository.save.mockImplementation((order) => Promise.resolve(order));
 
     const result = await useCase.execute({
       ...baseInput,
@@ -71,9 +73,9 @@ describe('CreateOrderUseCase', () => {
   });
 
   it('should throw EmptyOrderException when items list is empty', async () => {
-    await expect(
-      useCase.execute({ ...baseInput, items: [] }),
-    ).rejects.toThrow(EmptyOrderException);
+    await expect(useCase.execute({ ...baseInput, items: [] })).rejects.toThrow(
+      EmptyOrderException,
+    );
   });
 
   it('should throw ProductNotFoundException when product does not exist', async () => {
@@ -97,7 +99,7 @@ describe('CreateOrderUseCase', () => {
 
   it('should set status to pending on creation', async () => {
     productPort.getById.mockResolvedValue(mockProduct);
-    orderRepository.save.mockImplementation(async (order) => order);
+    orderRepository.save.mockImplementation((order) => Promise.resolve(order));
 
     const result = await useCase.execute(baseInput);
 
@@ -106,7 +108,7 @@ describe('CreateOrderUseCase', () => {
 
   it('should generate a UUID identifier', async () => {
     productPort.getById.mockResolvedValue(mockProduct);
-    orderRepository.save.mockImplementation(async (order) => order);
+    orderRepository.save.mockImplementation((order) => Promise.resolve(order));
 
     const result = await useCase.execute(baseInput);
 

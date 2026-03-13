@@ -132,9 +132,12 @@ describe('RegisterUserUseCase', () => {
 
   it('should hash the password before saving', async () => {
     userRepository.findByEmail.mockResolvedValue(null);
-    userRepository.save.mockImplementation(async (user) => user);
+    userRepository.save.mockImplementation((user) => Promise.resolve(user));
 
-    await useCase.execute({ email: 'test@example.com', password: 'Password1!' });
+    await useCase.execute({
+      email: 'test@example.com',
+      password: 'Password1!',
+    });
 
     const savedUser = userRepository.save.mock.calls[0][0];
     expect(savedUser.passwordHash).not.toBe('Password1!');
