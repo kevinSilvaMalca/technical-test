@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp -r \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/tmp/nest-bootstrap/.\" \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/\" && echo \"OK\")",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && npm test -- --coverage 2>&1)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && npm install @nestjs/mapped-types 2>&1 | tail -3)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && npm run build 2>&1)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node node_modules/@nestjs/cli/bin/nest.js build 2>&1)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node -e \"const m = require\\('mongoose'\\); console.log\\(typeof m.FilterQuery\\);\" 2>&1)",
+      "Bash(grep -r \"FilterQuery\" \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/node_modules/mongoose/\" --include=\"*.d.ts\" 2>/dev/null | head -10)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node node_modules/@nestjs/cli/bin/nest.js build 2>&1 && echo \"BUILD SUCCESS\")",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && npm run build 2>&1 && echo \"BUILD OK\")",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra\" && npm install 2>&1 | tail -5)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra\" && npm install --save-dev ts-node source-map-support 2>&1 | tail -3)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test/infra\" && npx cdk synth 2>&1)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && npx ts-node --version 2>&1 && npx ts-node --transpile-only -r tsconfig-paths/register src/seed/seed.ts --help 2>&1 | head -5 || npx tsc --noEmit --project tsconfig.json 2>&1 | head -30)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node node_modules/ts-node/dist/bin.js --transpile-only -r tsconfig-paths/register src/seed/seed.ts 2>&1 | head -20)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node node_modules/jest/bin/jest.js --coverage --passWithNoTests 2>&1 | tail -30)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node node_modules/jest/bin/jest.js --coverage 2>&1 | tail -15)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && npm install @nestjs/swagger 2>&1 | tail -5)",
+      "Bash(cd \"/Volumes/Macintosh HD/Users/kevinsilva27/github/technical-test\" && node node_modules/jest/bin/jest.js --coverage 2>&1 | tail -10)"
+    ]
+  }
+}
